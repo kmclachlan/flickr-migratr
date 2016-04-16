@@ -96,7 +96,7 @@ switch ($_REQUEST['do']) {
 			}
 			
 			$connection = new TwitterOAuth(FIVEHUNDREDPX_API_KEY, FIVEHUNDREDPX_API_SECRET, $request_token['oauth_token'], $request_token['oauth_token_secret']);
-			$access_token = $connection->oauth("oauth/access_token", array("oauth_verifier" => $_REQUEST['oauth_verifier']));
+			$access_token = $connection->oauth("v1/oauth/access_token", array("oauth_verifier" => $_REQUEST['oauth_verifier']));
 			$_SESSION['500px_access_token'] = $access_token;
 			
 			header('Location: index.php');
@@ -108,11 +108,11 @@ switch ($_REQUEST['do']) {
 			$return = (!empty($_SERVER['HTTPS']) ? 'https' : 'http') . '://' . $_SERVER['HTTP_HOST'] . '/500px.php';
 		
 			$connection = new TwitterOAuth(FIVEHUNDREDPX_API_KEY, FIVEHUNDREDPX_API_SECRET);
-			$request_token = $connection->oauth('oauth/request_token', array('oauth_callback' => $return));
+			$request_token = $connection->oauth('v1/oauth/request_token', array('oauth_callback' => $return));
 			$_SESSION['500px_oauth_token'] = $request_token['oauth_token'];
 			$_SESSION['500px_oauth_token_secret'] = $request_token['oauth_token_secret'];
 			
-			$url = $connection->url('oauth/authorize', array('oauth_token' => $request_token['oauth_token']));
+			$url = $connection->url('v1/oauth/authorize', array('oauth_token' => $request_token['oauth_token']));
 			
 			header('Location: ' . $url);
 		}
