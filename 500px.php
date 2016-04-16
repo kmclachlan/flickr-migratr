@@ -109,14 +109,6 @@ switch ($_REQUEST['do']) {
 		
 			$connection = new TwitterOAuth(FIVEHUNDREDPX_API_KEY, FIVEHUNDREDPX_API_SECRET);
 			
-			echo '<pre>';
-			var_dump($return);
-			echo '<hr />';
-			var_dump(FIVEHUNDREDPX_API_KEY);
-			echo '<hr />';
-			var_dump(FIVEHUNDREDPX_API_SECRET);
-			echo '<hr />';
-			
 			$request_token = $connection->oauth('v1/oauth/request_token', array('oauth_callback' => $return));
 			$_SESSION['500px_oauth_token'] = $request_token['oauth_token'];
 			$_SESSION['500px_oauth_token_secret'] = $request_token['oauth_token_secret'];
