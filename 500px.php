@@ -105,8 +105,10 @@ switch ($_REQUEST['do']) {
 		}
 		
 		if ($_REQUEST['do'] == 'authorize' || empty($_SESSION['500px_oauth_token'])) {
+			$return = (!empty($_SERVER['HTTPS']) ? 'https' : 'http') . '://' . $_SERVER['HTTP_HOST'] . '/500px.php';
+		
 			$connection = new TwitterOAuth(FIVEHUNDREDPX_API_KEY, FIVEHUNDREDPX_API_SECRET);
-			$request_token = $connection->oauth('oauth/request_token', array('oauth_callback' => 'http://dev.migrate.500px.com/500px.php'));
+			$request_token = $connection->oauth('oauth/request_token', array('oauth_callback' => $return));
 			$_SESSION['500px_oauth_token'] = $request_token['oauth_token'];
 			$_SESSION['500px_oauth_token_secret'] = $request_token['oauth_token_secret'];
 			
