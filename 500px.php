@@ -108,6 +108,12 @@ switch ($_REQUEST['do']) {
 			$return = (!empty($_SERVER['HTTPS']) ? 'https' : 'http') . '://' . $_SERVER['HTTP_HOST'] . '/500px.php';
 		
 			$connection = new TwitterOAuth(FIVEHUNDREDPX_API_KEY, FIVEHUNDREDPX_API_SECRET);
+			
+			echo '<pre>';
+			var_dump($return);
+			var_dump(FIVEHUNDREDPX_API_KEY);
+			var_dump(FIVEHUNDREDPX_API_SECRET);
+			
 			$request_token = $connection->oauth('v1/oauth/request_token', array('oauth_callback' => $return));
 			$_SESSION['500px_oauth_token'] = $request_token['oauth_token'];
 			$_SESSION['500px_oauth_token_secret'] = $request_token['oauth_token_secret'];
