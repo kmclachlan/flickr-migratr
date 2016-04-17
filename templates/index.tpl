@@ -218,17 +218,16 @@ function migratePhoto() {
 		$('#process-text').text('Uploading Photo to 500px');
 		
 		$.get('500px.php?do=upload&id=' + $photo.data('id') + '&user_id=' + gallery.user_id + '&gallery_id=' + gallery.id, photo, function(response) {
-			if (response == 'ok') {
-				$('#flickr-photostream li.photo:first').remove();
-
-				migratedPhotos++;
-
-				$('#migration-process .progress-bar').width((migratedPhotos / totalPhotos * 100) + '%');
-
-		 		migratePhoto();
-			} else {
-				alert('Something happened! Aborting\n' + response);
+			if (response != 'ok') {
+				alert('Error migrating photo:\n' + response + '\n\nSkipping to next photo...');
 			}
+			$('#flickr-photostream li.photo:first').remove();
+
+			migratedPhotos++;
+
+			$('#migration-process .progress-bar').width((migratedPhotos / totalPhotos * 100) + '%');
+
+		 	migratePhoto();
 		});
 	}
 }

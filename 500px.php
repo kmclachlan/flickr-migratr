@@ -73,7 +73,11 @@ switch ($_REQUEST['do']) {
 				
 				echo 'ok';
 			} else {
-				echo $result->error . ' - ' . $result->status;
+				if ($upload_result->status == 415) {
+					echo 'Unsupported media format';
+				} else {
+					echo $upload_result->error . ' - ' . $upload_result->status;
+				}
 			}
 		} else {
 			echo 'No access token';
