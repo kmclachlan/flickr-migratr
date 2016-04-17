@@ -183,12 +183,9 @@ var photoData = {};
 var gallery = {};
 
 function startMigration() {
-	console.log('starting migration');
 	$.getJSON('500px.php?do=create_gallery', function(response) {
-		console.log('got response');
 		if (response.gallery && response.gallery.id) {
 			gallery = response.gallery;
-			console.log('created gallery');
 			setTimeout(function() { migratePhoto(); }, 1000);
 		} else {
 			alert('Unable to continue:\n' + response);
@@ -202,7 +199,6 @@ function migratePhoto() {
 		// @todo we're done!
 		alert('All done!');
 	} else {
-		console.log('uploading photo');
 		photo = photoData[$photo.data('id')];
 		$('#photowindow img').attr('src', photo.url_m);
 		$photo.fadeOut(500);
@@ -305,11 +301,8 @@ $(function () {
 		$('#flickr-photostream').width(1000000000);
 		//$('#sidepanel').animate({ marginLeft:-350 }, 500);
 		//$('#main').animate({ marginLeft:0 }, 500, function() {
-			console.log('1');
 			$('#migration-process').fadeIn(500);
-			console.log('2');
 			totalPhotos = $('#flickr-photostream li').not('.unchecked').size();
-			console.log('3');
 			startMigration();
 		//});
 	});
